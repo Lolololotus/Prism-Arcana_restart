@@ -74,3 +74,5 @@
 [00:49:54.380] Server  LOG     ✓ Compiled in 16ms
 [00:50:04.036] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
 [00:50:33.762] Server  ERROR   Gemini API Error: Error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent: [403 Forbidden] Your API key was reported as leaked. Please use another API key.
+[00:51:17.407] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:51:29.219] Server  ERROR   Gemini API Error: Error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent: [403 Forbidden] Your API key was reported as leaked. Please use another API key.
