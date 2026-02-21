@@ -1,0 +1,142 @@
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&display=swap');
+
+:root {
+    --background: #000000;
+    --foreground: #F8F8F8;
+    /* Off-white Bloom */
+    --accent: #d4af37;
+    /* Gold */
+    --font-serif: 'Nanum Myeongjo', serif;
+    --glow-gold: 0 0 20px rgba(212, 175, 55, 0.4), 0 0 40px rgba(212, 175, 55, 0.2);
+    --bloom-text: 0 0 10px rgba(248, 248, 248, 0.5);
+}
+
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    background: var(--background);
+    background-image:
+        radial-gradient(circle at top, rgba(76, 31, 150, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at bottom, rgba(212, 175, 55, 0.03) 0%, transparent 50%);
+    color: var(--foreground);
+    font-family: var(--font-serif);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    height: 100vh;
+}
+
+.font-serif {
+    font-family: var(--font-serif);
+}
+
+.tracking-widest {
+    letter-spacing: 0.3em;
+    /* Enhanced tracking */
+}
+
+.bloom-text {
+    text-shadow: var(--bloom-text);
+}
+
+/* Ritual Layout Helpers */
+.ritual-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    background: transparent;
+    z-index: 10;
+    position: relative;
+}
+
+.arcana-card {
+    width: 100%;
+    max-width: 400px;
+    height: 40vh;
+    /* 40% height as specified */
+    margin-bottom: 2rem;
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: var(--glow-gold);
+    animation: pulse-glow 4s ease-in-out infinite;
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+@keyframes pulse-glow {
+
+    0%,
+    100% {
+        box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+    }
+
+    50% {
+        box-shadow: 0 0 40px rgba(212, 175, 55, 0.6);
+    }
+}
+
+/* Slot Aesthetics */
+.jewel-slot {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.jewel-slot.diamond {
+    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+}
+
+.jewel-slot.circle {
+    border-radius: 50%;
+}
+
+.jewel-slot:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--accent);
+    transform: scale(1.1);
+}
+
+/* Stained Glass Aesthetics */
+.glass-effect {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+
+/* Typist Effect Cursor */
+.cursor {
+    display: inline-block;
+    width: 2px;
+    height: 1em;
+    background: var(--accent);
+    margin-left: 2px;
+    animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+
+    from,
+    to {
+        opacity: 1
+    }
+
+    50% {
+        opacity: 0
+    }
+}
