@@ -23,6 +23,7 @@ body {
   font-family: var(--font-serif);
   -webkit-font-smoothing: antialiased;
   background-image: radial-gradient(circle, #4a9eff0d 0%, #0000 70%), radial-gradient(circle at 20% 30%, #d4af3708 0%, #0000 40%);
+  width: 100vw;
   height: 100vh;
   line-height: 1.6;
   overflow: hidden;
@@ -90,93 +91,98 @@ body {
 }
 
 h1 {
-  letter-spacing: .3em;
-  font-size: 1.4rem;
+  letter-spacing: .2em;
+  font-size: 1.25rem;
   font-weight: 700;
   line-height: 1.4;
 }
 
 .glass-blueprint {
-  -webkit-backdrop-filter: blur(12px);
-  backdrop-filter: blur(12px);
-  background: #ffffff0a;
-  border: 1px solid #4a9eff26;
-  border-radius: 4px;
-  padding: 2.5rem;
+  -webkit-backdrop-filter: blur(15px);
+  backdrop-filter: blur(15px);
+  background: #0a0a0ad9;
+  border: 1px solid #4a9eff33;
+  border-radius: 8px;
+  padding: 3rem;
   position: relative;
-  box-shadow: 0 0 40px #000000b3;
+  box-shadow: 0 0 50px #000c;
 }
 
 .glass-blueprint:after {
   content: "";
   pointer-events: none;
-  border: 1px solid #d4af371a;
+  border: 1px solid #d4af3726;
   position: absolute;
-  inset: 8px;
+  inset: 10px;
 }
 
 .crystalline-crest {
   border: 1px solid var(--accent-gold);
   color: var(--accent-gold);
   font-family: var(--font-serif);
-  letter-spacing: .6em;
+  letter-spacing: .7em;
   cursor: pointer;
   text-transform: uppercase;
   background: none;
-  padding: 14px 40px;
+  padding: 16px 48px;
   font-weight: 700;
-  transition: all .4s;
+  transition: all .4s cubic-bezier(.165, .84, .44, 1);
   position: relative;
 }
 
 .crystalline-crest:hover {
-  background: #d4af371a;
+  background: #d4af3726;
+  border-color: #fff;
   transform: translateY(-3px);
-  box-shadow: 0 0 40px #d4af374d;
+  box-shadow: 0 0 50px #d4af3766;
 }
 
 .ritual-container {
+  z-index: 50;
+  pointer-events: none;
   background: none;
-  place-items: center;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   width: 100vw;
   height: 100vh;
-  padding: 2rem;
-  display: grid;
+  display: flex;
+  position: fixed;
+  inset: 0;
+}
+
+.ritual-container > * {
+  pointer-events: auto;
+}
+
+.arcana-card {
+  z-index: 10;
   position: relative;
-  overflow: hidden;
 }
 
 .jewel-slot-crest {
   border: 1px solid #4a9eff4d;
   justify-content: center;
   align-items: center;
-  width: 55px;
-  height: 55px;
+  width: 60px;
+  height: 60px;
   transition: all .4s;
   display: flex;
 }
 
-.jewel-slot-crest.diamond {
-  transform: rotate(45deg);
-}
-
-.jewel-slot-crest.circle {
-  border-radius: 50%;
-}
-
 .jewel-slot-crest.active {
   border-color: var(--accent-gold);
-  box-shadow: 0 0 20px var(--accent-gold);
-  background: #d4af3726;
+  box-shadow: 0 0 25px var(--accent-gold);
+  background: #d4af3733;
 }
 
 .back-bloom {
   background: radial-gradient(circle, var(--accent-gold) 0%, transparent 70%);
   z-index: -1;
-  opacity: .4;
+  opacity: .5;
   pointer-events: none;
-  width: 400px;
-  height: 400px;
+  width: 500px;
+  height: 500px;
   position: absolute;
   top: 50%;
   left: 50%;

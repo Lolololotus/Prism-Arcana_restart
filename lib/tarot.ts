@@ -39,7 +39,15 @@ export const calculateSoulNumber = (date: string): number => {
     const day = parseInt(digits.substring(6, 8));
 
     let sum = year + month + day;
-    let soul = sum % 22;
 
-    return soul;
+    // Iteratively sum digits until result is <= 22
+    while (sum > 22) {
+        sum = sum.toString().split("").reduce((acc, d) => acc + parseInt(d), 0);
+    }
+
+    return sum === 22 ? 21 : sum; // Standard convention: 22 maps to 21 (World) or 0 (Fool)
+    // However, the user expected 6 from 19881024 -> 2022 -> 2+0+2+2 = 6.
+    // If we just do digit summing:
+    // 1988+10+24 = 2022. 2+0+2+2 = 6. Correct.
+    // Let's use the iterative digit sum logic.
 };
