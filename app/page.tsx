@@ -6,7 +6,7 @@ import GalacticBackground from "@/components/GalacticBackground";
 import ArcanaCard from "@/components/ArcanaCard";
 import TypingNarrative from "@/components/TypingNarrative";
 import JewelSlot from "@/components/JewelSlot";
-import { calculateSoulNumber } from "@/lib/tarot";
+import { calculateSoulNumber, MAJOR_ARCANA } from "@/lib/tarot";
 
 export default function Home() {
     const [step, setStep] = useState(1);
@@ -22,14 +22,8 @@ export default function Home() {
     const [isRevealed, setIsRevealed] = useState(false);
 
     const calculateLifePath = (date: string) => {
-        const digits = date.replace(/\D/g, "");
-        if (digits.length !== 8) return;
-
-        let sum = digits.split("").reduce((acc, d) => acc + parseInt(d), 0);
-        while (sum > 22) {
-            sum = sum.toString().split("").reduce((acc, d) => acc + parseInt(d), 0);
-        }
-        const finalSoul = sum === 22 ? 21 : sum;
+        const finalSoul = calculateSoulNumber(date);
+        if (finalSoul === 0 && date.length === 8) return;
         setLifePath(finalSoul);
         setSoulNumber(finalSoul);
         setStep(3);
@@ -49,9 +43,9 @@ export default function Home() {
                     history: [],
                     tarotData: {
                         number: soulNumber,
-                        name: soulNumber !== null ? (await import("@/lib/tarot")).MAJOR_ARCANA[soulNumber].name : "",
-                        title: soulNumber !== null ? (await import("@/lib/tarot")).MAJOR_ARCANA[soulNumber].title : "",
-                        symbol: soulNumber !== null ? (await import("@/lib/tarot")).MAJOR_ARCANA[soulNumber].symbol : ""
+                        name: soulNumber !== null ? MAJOR_ARCANA[soulNumber].name : "",
+                        title: soulNumber !== null ? MAJOR_ARCANA[soulNumber].title : "",
+                        symbol: soulNumber !== null ? MAJOR_ARCANA[soulNumber].symbol : ""
                     }
                 }),
             });
@@ -78,7 +72,6 @@ export default function Home() {
 
     useEffect(() => {
         if (step === 8) {
-            // Beta Guide: Implementing 2026 trajectory bridge logic [cite: 2026-02-16]
             const interval = setInterval(() => {
                 setBridgeProgress(prev => {
                     if (prev >= 100) {

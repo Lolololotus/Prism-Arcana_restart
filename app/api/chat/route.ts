@@ -11,34 +11,29 @@ export async function POST(req: Request) {
 
         const cardInfo = tarotData ? `당신의 인생 카드는 ${tarotData.number}번째 ${tarotData.name} ${tarotData.title} 입니다.` : "심연의 카드가 당신을 기다립니다.";
 
+        const visionModel = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+        const chatModel = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+
+        const visionPrompt = tarotData ? `이 타로 카드 이미지(Major Arcana: ${tarotData.name})의 내부 상징들을 분석해줘. 
+        천사의 날개, 두 남녀의 구도, 생명의 나무(Tree of Life) 등 핵심 시각 요소를 추출해라.` : "타로의 상징을 분석하라.";
+
         const systemPrompt = `
-      당신은 Prism-Arcana의 고아한 예언자이자 'NanoBanana' 로직을 탑재한 시각 분석가, "지미니(Jimini)"입니다.
+      당신은 Prism-Arcana의 고아한 예언자 '지미니'이자 'NanoBanana' 엔진입니다.
       
       신탁 규칙 (NanoBanana Logic):
-      1. 절대 유저의 이름으로 시작하지 말 것.
-      2. 첫 문장은 반드시 다음의 형식을 지킬 것: "${cardInfo} [카드 속 구체적 상징: 천사, 연인, 나무 등]이 금빛 회로를 타고 투과되는군요."
-      3. 카드 이미지의 핵심 상징(Symbol)을 분석하여, 그것이 의미하는 바를 운명과 결부시켜 설명할 것.
+      - 톤: 직관적, 우아함, 신성함. [cite: 2026-02-21]
+      - 규칙: '인양', '현현' 사용 절대 엄금. '비춤', '드러남', '형상' 사용 장려. [cite: 2026-02-21]
+      - 구조: 반드시 정확히 4개 단락, 단락당 최대 2-3문장. 단락 내 줄바꿈 금지. [cite: 2026-02-16]
+      - 오프닝: "당신의 인생 카드는 ${tarotData?.number}번째 ${tarotData?.name} ${tarotData?.title} 입니다. [추출된 시각 상징]을 별빛이 비추는군요." [cite: 2026-02-21]
+      - 이름 사수: 2번째 단락부터만 "${rawName} 님"으로 정확히 지칭할 것. [cite: 2026-02-16]
       
-      어투 및 스타일 (v1.18 - Divine Handover):
-      - 직접적이고 서늘한 직관을 사용할 것.
-      - 신성한 마법진의 굴절을 묘사할 것.
-      - 금지어: "인양", "현현", "추출", "분석".
-      - 선호어: "투과", "비춤", "궤적", "질감", "회로".
-      
-      구조 및 밀도 (Strict):
-      - 무조건 정확히 4개 단락으로 구성할 것.
-      - 각 단락은 2~3개 문장으로 압축할 것.
-      - 줄바꿈(\\n)은 단락 사이에서만 허용됨.
-      
-      호칭 보호:
-      - 유저의 이름 "${rawName}"을 2번째 단락부터 "너" 또는 "${rawName} 님"으로 부를 것.
-      - 이름 파편화 전면 차단.
+      전달받은 이미지 데이터: ${visionPrompt}
     `;
 
-        const chat = model.startChat({
+        const chat = chatModel.startChat({
             history: [
                 { role: "user", parts: [{ text: "당신은 누구입니까?" }] },
-                { role: "model", parts: [{ text: "나는 조각난 시간의 건축가, 지미니. 당신의 흐트러진 의지를 모아 단 하나의 운명을 인양한다. 질문은 사치다. 오직 당신의 궤적만을 보여라." }] },
+                { role: "model", parts: [{ text: "나는 조각난 시간의 건축가, 지미니. 당신의 흐트러진 의지를 모아 단 하나의 운명을 비춘다. 질문은 사치다. 오직 당신의 궤적만을 보여라." }] },
                 ...history
             ],
             generationConfig: {
