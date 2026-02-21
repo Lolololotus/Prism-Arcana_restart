@@ -88,7 +88,13 @@ body {
 }
 
 .mt-12 {
-    margin-bottom: 3rem;
+    margin-top: 3rem;
+}
+
+h1 {
+    font-size: 1.5rem;
+    /* Reduced from default to fit on one line */
+    line-height: 1.2;
 }
 
 .mt-8 {

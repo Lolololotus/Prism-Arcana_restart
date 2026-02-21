@@ -100,22 +100,22 @@ export default function Home() {
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 0, scale: 1.1 }}
-                        className="z-10 text-center flex flex-col items-center justify-center w-full max-w-2xl"
+                        className="z-10 text-center flex flex-col items-center justify-center w-full max-w-2xl px-4"
                     >
-                        <div className="glass-blueprint mb-12 w-full">
-                            <h1 className="tracking-widest text-2xl font-bold bloom-text">
+                        <div className="glass-blueprint w-full flex flex-col items-center">
+                            <h1 className="tracking-widest text-lg font-bold bloom-text mb-8">
                                 당신을 뭐라고 부르길 원하십니까?
                             </h1>
+                            <input
+                                type="text"
+                                autoFocus
+                                value={rawName}
+                                onChange={(e) => setRawName(e.target.value)}
+                                className="bg-transparent border-b border-gold-celestial/30 p-2 text-center text-3xl tracking-widest outline-none font-serif text-[#F8F8F8] bloom-text focus:border-accent-gold transition-colors w-full max-w-md"
+                                placeholder="..."
+                                onKeyDown={(e) => e.key === "Enter" && rawName && setStep(2)}
+                            />
                         </div>
-                        <input
-                            type="text"
-                            autoFocus
-                            value={rawName}
-                            onChange={(e) => setRawName(e.target.value)}
-                            className="bg-transparent border-b border-gold-celestial/30 p-2 text-center text-3xl tracking-widest outline-none font-serif text-[#F8F8F8] bloom-text focus:border-accent-gold transition-colors w-full max-w-md"
-                            placeholder="..."
-                            onKeyDown={(e) => e.key === "Enter" && rawName && setStep(2)}
-                        />
                     </motion.div>
                 )}
 
@@ -125,23 +125,23 @@ export default function Home() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        className="z-10 text-center flex flex-col items-center justify-center w-full max-w-2xl"
+                        className="z-10 text-center flex flex-col items-center justify-center w-full max-w-2xl px-4"
                     >
-                        <div className="glass-blueprint mb-12 w-full">
-                            <h1 className="tracking-widest text-2xl font-bold bloom-text">
+                        <div className="glass-blueprint w-full flex flex-col items-center">
+                            <h1 className="tracking-widest text-lg font-bold bloom-text mb-8">
                                 당신의 우주가 열린 날짜를 알려주십시오.
                             </h1>
+                            <input
+                                type="text"
+                                autoFocus
+                                maxLength={8}
+                                value={birthDate}
+                                onChange={(e) => setBirthDate(e.target.value.replace(/\D/g, ""))}
+                                className="bg-transparent border-b border-gold-celestial/30 p-2 text-center text-3xl tracking-widest outline-none font-serif text-[#F8F8F8] bloom-text focus:border-accent-gold transition-colors w-full max-w-md"
+                                placeholder="YYYYMMDD"
+                                onKeyDown={(e) => e.key === "Enter" && birthDate.length === 8 && calculateLifePath(birthDate)}
+                            />
                         </div>
-                        <input
-                            type="text"
-                            autoFocus
-                            maxLength={8}
-                            value={birthDate}
-                            onChange={(e) => setBirthDate(e.target.value.replace(/\D/g, ""))}
-                            className="bg-transparent border-b border-gold-celestial/30 p-2 text-center text-3xl tracking-widest outline-none font-serif text-[#F8F8F8] bloom-text focus:border-accent-gold transition-colors w-full max-w-md"
-                            placeholder="YYYYMMDD"
-                            onKeyDown={(e) => e.key === "Enter" && birthDate.length === 8 && calculateLifePath(birthDate)}
-                        />
                     </motion.div>
                 )}
 
