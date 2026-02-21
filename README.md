@@ -16,11 +16,11 @@
 ---
 
 ## 🛠 Tech Stack
-- **Framework:** Next.js 14 (App Router)
-- **Package Manager:** pnpm
+- **Framework:** Next.js 16 (App Router)
+- **Package Manager:** npm
 - **Language:** TypeScript
-- **Styling:** Tailwind CSS, Framer Motion (Ritual UI)
-- **AI/ML:** Gemini 1.5 Pro (Conversation Flow), Stable Diffusion / ControlNet (Image Rendering)
+- **Styling:** Vanilla CSS, Framer Motion (Midnight Cathedral Ritual UI)
+- **AI/ML:** Gemini 2.0 Flash (Conversation Flow), Stable Diffusion / ControlNet (Image Rendering)
 
 ---
 
