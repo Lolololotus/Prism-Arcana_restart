@@ -6,12 +6,14 @@ import GalacticBackground from "@/components/GalacticBackground";
 import ArcanaCard from "@/components/ArcanaCard";
 import TypingNarrative from "@/components/TypingNarrative";
 import JewelSlot from "@/components/JewelSlot";
+import { calculateSoulNumber } from "@/lib/tarot";
 
 export default function Home() {
     const [step, setStep] = useState(1);
     const [rawName, setRawName] = useState("");
     const [birthDate, setBirthDate] = useState("");
     const [lifePath, setLifePath] = useState<number | null>(null);
+    const [soulNumber, setSoulNumber] = useState<number | null>(null);
     const [narrative, setNarrative] = useState("");
     const [isTyping, setIsTyping] = useState(false);
     const [objects, setObjects] = useState<string[]>([]);
@@ -28,6 +30,7 @@ export default function Home() {
             sum = sum.toString().split("").reduce((acc, d) => acc + parseInt(d), 0);
         }
         setLifePath(sum);
+        setSoulNumber(calculateSoulNumber(date));
         setStep(3); // Move to Step 3: Life Card reveal
     };
 
@@ -145,7 +148,7 @@ export default function Home() {
                         exit={{ opacity: 0 }}
                         className="z-10 flex flex-col items-center w-full max-w-lg"
                     >
-                        <ArcanaCard intensity={0.2} />
+                        <ArcanaCard soulNumber={soulNumber} intensity={1} />
                         <motion.div
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
@@ -172,7 +175,7 @@ export default function Home() {
                         className="z-10 flex flex-col items-center w-full px-4"
                     >
                         <div className="mb-12 opacity-40">
-                            <ArcanaCard intensity={0.1} />
+                            <ArcanaCard soulNumber={soulNumber} intensity={0.1} />
                         </div>
                         {narrative ? (
                             <TypingNarrative text={narrative} onComplete={() => setIsTyping(false)} />
@@ -201,7 +204,7 @@ export default function Home() {
                         exit={{ opacity: 0 }}
                         className="z-10 flex flex-col items-center w-full max-w-4xl"
                     >
-                        <ArcanaCard intensity={objects.length * 0.2 + colors.length * 0.2} />
+                        <ArcanaCard soulNumber={soulNumber} intensity={objects.length * 0.2 + colors.length * 0.2} />
 
                         <div className="mt-12 text-center">
                             <p className="tracking-widest mb-8 bloom-text">
@@ -251,7 +254,7 @@ export default function Home() {
                         exit={{ opacity: 0 }}
                         className="z-10 text-center"
                     >
-                        <ArcanaCard intensity={1} />
+                        <ArcanaCard soulNumber={soulNumber} intensity={1} />
                         <p className="tracking-widest mt-12 bloom-text animate-pulse">
                             심연의 스테인드글라스를 구워내는 중...
                         </p>
@@ -285,7 +288,7 @@ export default function Home() {
                         animate={{ opacity: 1, scale: 1 }}
                         className="z-10 flex flex-col items-center w-full max-w-lg"
                     >
-                        <ArcanaCard intensity={1} glowColor="#ffcc00" />
+                        <ArcanaCard soulNumber={soulNumber} intensity={1} glowColor="#ffcc00" />
                         <div className="text-center mt-12">
                             <h1 className="tracking-widest text-3xl font-bold bloom-text mb-4">2026 ARCANUM</h1>
                             <p className="tracking-widest opacity-60 mb-12">"{rawName}" 님의 최종 운명이 확정되었습니다.</p>
