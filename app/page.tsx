@@ -20,7 +20,6 @@ export default function Home() {
     const [colors, setColors] = useState<string[]>([]);
     const [bridgeProgress, setBridgeProgress] = useState(0);
 
-    // Calculate Life Path Number
     const calculateLifePath = (date: string) => {
         const digits = date.replace(/\D/g, "");
         if (digits.length !== 8) return;
@@ -31,7 +30,7 @@ export default function Home() {
         }
         setLifePath(sum);
         setSoulNumber(calculateSoulNumber(date));
-        setStep(3); // Move to Step 3: Life Card reveal
+        setStep(3);
     };
 
     const startInterpretation = async () => {
@@ -42,29 +41,31 @@ export default function Home() {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    message: `나의 인생 번호는 ${lifePath}이다. 나의 근원을 해석하라.`,
+                    message: "나의 성좌를 비추고 근원을 보여라.",
                     rawName,
-                    history: []
+                    history: [],
+                    tarotData: {
+                        number: soulNumber,
+                        name: soulNumber !== null ? (await import("@/lib/tarot")).MAJOR_ARCANA[soulNumber].name : "",
+                        title: soulNumber !== null ? (await import("@/lib/tarot")).MAJOR_ARCANA[soulNumber].title : "",
+                        symbol: soulNumber !== null ? (await import("@/lib/tarot")).MAJOR_ARCANA[soulNumber].symbol : ""
+                    }
                 }),
             });
             const data = await response.json();
             setNarrative(data.text);
         } catch (error) {
             console.error(error);
-            setNarrative("천상의 회로에 균열이 생겼다. 다시 시도하라.");
+            setNarrative("심연의 회로에 균열이 투과되었습니다. 다시 시도하십시오.");
         }
     };
 
     const handleObjectCollect = (id: string) => {
-        if (objects.length < 3 && !objects.includes(id)) {
-            setObjects([...objects, id]);
-        }
+        if (objects.length < 3 && !objects.includes(id)) setObjects([...objects, id]);
     };
 
     const handleColorCollect = (id: string) => {
-        if (colors.length < 2 && !colors.includes(id)) {
-            setColors([...colors, id]);
-        }
+        if (colors.length < 2 && !colors.includes(id)) setColors([...colors, id]);
     };
 
     const startGeneration = () => {
@@ -101,15 +102,17 @@ export default function Home() {
                         exit={{ opacity: 0, scale: 1.1 }}
                         className="z-10 text-center flex flex-col items-center"
                     >
-                        <h1 className="tracking-widest mb-12 text-2xl font-bold bloom-text">
-                            당신의 성명을 새겨넣으십시오.
-                        </h1>
+                        <div className="glass-blueprint mb-12">
+                            <h1 className="tracking-widest text-2xl font-bold bloom-text">
+                                당신의 성명을 각인하십시오.
+                            </h1>
+                        </div>
                         <input
                             type="text"
                             autoFocus
                             value={rawName}
                             onChange={(e) => setRawName(e.target.value)}
-                            className="bg-transparent border-b border-white/20 p-2 text-center text-3xl tracking-widest outline-none font-serif text-[#F8F8F8] bloom-text"
+                            className="bg-transparent border-b border-gold-celestial/30 p-2 text-center text-3xl tracking-widest outline-none font-serif text-[#F8F8F8] bloom-text focus:border-accent-gold transition-colors"
                             placeholder="..."
                             onKeyDown={(e) => e.key === "Enter" && rawName && setStep(2)}
                         />
@@ -124,16 +127,18 @@ export default function Home() {
                         exit={{ opacity: 0 }}
                         className="z-10 text-center flex flex-col items-center"
                     >
-                        <h1 className="tracking-widest mb-12 text-2xl font-bold bloom-text">
-                            탄생의 궤적을 입력하십시오 (8자리).
-                        </h1>
+                        <div className="glass-blueprint mb-12">
+                            <h1 className="tracking-widest text-2xl font-bold bloom-text">
+                                탄생의 궤적을 투과하십시오.
+                            </h1>
+                        </div>
                         <input
                             type="text"
                             autoFocus
                             maxLength={8}
                             value={birthDate}
                             onChange={(e) => setBirthDate(e.target.value.replace(/\D/g, ""))}
-                            className="bg-transparent border-b border-white/20 p-2 text-center text-3xl tracking-widest outline-none font-serif text-[#F8F8F8] bloom-text"
+                            className="bg-transparent border-b border-gold-celestial/30 p-2 text-center text-3xl tracking-widest outline-none font-serif text-[#F8F8F8] bloom-text focus:border-accent-gold transition-colors"
                             placeholder="YYYYMMDD"
                             onKeyDown={(e) => e.key === "Enter" && birthDate.length === 8 && calculateLifePath(birthDate)}
                         />
@@ -146,19 +151,22 @@ export default function Home() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        className="z-10 flex flex-col items-center w-full max-w-lg"
+                        className="z-10 flex flex-col items-center w-full max-w-2xl"
                     >
                         <ArcanaCard soulNumber={soulNumber} intensity={1} />
+
                         <motion.div
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 1 }}
-                            className="text-center mt-8"
+                            className="text-center mt-12"
                         >
-                            <h2 className="tracking-widest text-xl opacity-60">인생 번호: {lifePath}</h2>
+                            <div className="glass-blueprint mb-8 px-12">
+                                <h2 className="tracking-[0.5em] text-xl opacity-80">SOUL NUMBER: {soulNumber}</h2>
+                            </div>
                             <button
                                 onClick={startInterpretation}
-                                className="mt-8 px-8 py-2 border border-accent/40 text-accent tracking-widest hover:bg-accent/10 transition-all font-serif"
+                                className="crystalline-crest"
                             >
                                 의식 계속하기
                             </button>
@@ -174,21 +182,24 @@ export default function Home() {
                         exit={{ opacity: 0 }}
                         className="z-10 flex flex-col items-center w-full px-4"
                     >
-                        <div className="mb-12 opacity-40">
-                            <ArcanaCard soulNumber={soulNumber} intensity={0.1} />
+                        <div className="mb-8 opacity-60 scale-75 origin-top">
+                            <ArcanaCard soulNumber={soulNumber} intensity={0.2} />
                         </div>
-                        {narrative ? (
-                            <TypingNarrative text={narrative} onComplete={() => setIsTyping(false)} />
-                        ) : (
-                            <p className="tracking-widest animate-pulse">심연의 서사를 길어올리는 중...</p>
-                        )}
+
+                        <div className="glass-blueprint w-full max-w-3xl">
+                            {narrative ? (
+                                <TypingNarrative text={narrative} onComplete={() => setIsTyping(false)} />
+                            ) : (
+                                <p className="tracking-widest animate-pulse italic text-center text-gold-celestial/50">천상의 도면을 인양하는 중...</p>
+                            )}
+                        </div>
 
                         {!isTyping && narrative && (
                             <motion.button
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 onClick={() => setStep(5)}
-                                className="mt-12 px-12 py-3 glass-effect text-accent tracking-widest border border-accent/20 hover:border-accent font-serif"
+                                className="mt-12 crystalline-crest"
                             >
                                 공방으로 진입하기
                             </motion.button>
@@ -204,22 +215,22 @@ export default function Home() {
                         exit={{ opacity: 0 }}
                         className="z-10 flex flex-col items-center w-full max-w-4xl"
                     >
-                        <ArcanaCard soulNumber={soulNumber} intensity={objects.length * 0.2 + colors.length * 0.2} />
+                        <div className="scale-90 origin-top mb-4">
+                            <ArcanaCard soulNumber={soulNumber} intensity={objects.length * 0.2 + colors.length * 0.2} />
+                        </div>
 
-                        <div className="mt-12 text-center">
+                        <div className="glass-blueprint mt-8 text-center px-12">
                             <p className="tracking-widest mb-8 bloom-text">
-                                {step === 5 ? "지미니: 운명의 파편들을 선택하십시오." : "지미니: 색채의 영혼을 불어넣으십시오."}
+                                {step === 5 ? "지미니: 운명의 청사진을 구성하십시오." : "지미니: 색채의 영혼을 투과하십시오."}
                             </p>
 
-                            <div className="flex gap-4 mb-8">
+                            <div className="flex gap-8 mb-8 justify-center">
                                 {[1, 2, 3].map(i => (
                                     <JewelSlot
                                         key={`obj-${i}`}
                                         type="diamond"
                                         isActive={objects.length >= i}
-                                        onClick={() => {
-                                            if (step === 5) handleObjectCollect(`obj-${i}`);
-                                        }}
+                                        onClick={() => step === 5 && handleObjectCollect(`obj-${i}`)}
                                     />
                                 ))}
                                 {[1, 2].map(i => (
@@ -228,20 +239,20 @@ export default function Home() {
                                         type="circle"
                                         isActive={colors.length >= i}
                                         color={i === 1 ? "#ff4d4d" : "#4d79ff"}
-                                        onClick={() => {
-                                            if (step === 6) handleColorCollect(`col-${i}`);
-                                        }}
+                                        onClick={() => step === 6 && handleColorCollect(`col-${i}`)}
                                     />
                                 ))}
                             </div>
 
-                            {step === 5 && objects.length === 3 && (
-                                <button onClick={() => setStep(6)} className="px-8 py-2 border border-accent/20 text-accent tracking-widest font-serif hover:bg-accent/10 transition-all">다음 단계로</button>
-                            )}
+                            <div className="h-12 flex items-center justify-center">
+                                {step === 5 && objects.length === 3 && (
+                                    <button onClick={() => setStep(6)} className="text-accent-gold tracking-[0.4em] font-bold border-b border-accent-gold/40 hover:border-accent-gold transition-colors">다음 투과로</button>
+                                )}
 
-                            {step === 6 && colors.length === 2 && (
-                                <button onClick={startGeneration} className="px-8 py-2 border border-accent/20 text-accent tracking-widest font-serif hover:bg-accent/10 transition-all">아르카나 생성</button>
-                            )}
+                                {step === 6 && colors.length === 2 && (
+                                    <button onClick={startGeneration} className="crystalline-crest">아르카나 피어남</button>
+                                )}
+                            </div>
                         </div>
                     </motion.div>
                 )}
@@ -255,8 +266,8 @@ export default function Home() {
                         className="z-10 text-center"
                     >
                         <ArcanaCard soulNumber={soulNumber} intensity={1} />
-                        <p className="tracking-widest mt-12 bloom-text animate-pulse">
-                            심연의 스테인드글라스를 구워내는 중...
+                        <p className="tracking-widest mt-12 bloom-text animate-pulse italic text-gold-celestial/60">
+                            천상의 스테인드글라스를 도식화하는 중...
                         </p>
                     </motion.div>
                 )}
@@ -269,15 +280,15 @@ export default function Home() {
                         exit={{ opacity: 0 }}
                         className="z-10 w-full max-w-md text-center"
                     >
-                        <h2 className="tracking-widest mb-8 text-xl bloom-text">2026년의 운명을 인양 중...</h2>
-                        <div className="w-full h-1 bg-white/10 rounded-full overflow-hidden">
+                        <h2 className="tracking-widest mb-8 text-xl bloom-text gold-engraved">2026년의 궤적을 비추는 중...</h2>
+                        <div className="w-full h-0.5 bg-white/5 relative overflow-hidden">
                             <motion.div
-                                className="h-full bg-accent"
+                                className="h-full bg-accent-gold shadow-[0_0_10px_var(--accent-gold)]"
                                 initial={{ width: 0 }}
                                 animate={{ width: `${bridgeProgress}%` }}
                             />
                         </div>
-                        <p className="mt-4 text-xs tracking-widest opacity-40">성스러운 연결이 지속되고 있습니다.</p>
+                        <p className="mt-6 text-[10px] tracking-[0.5em] opacity-40 uppercase">Ethereal Connection Maintenance</p>
                     </motion.div>
                 )}
 
@@ -286,22 +297,23 @@ export default function Home() {
                         key="step9"
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
-                        className="z-10 flex flex-col items-center w-full max-w-lg"
+                        className="z-10 flex flex-col items-center w-full max-w-2xl"
                     >
                         <ArcanaCard soulNumber={soulNumber} intensity={1} glowColor="#ffcc00" />
-                        <div className="text-center mt-12">
-                            <h1 className="tracking-widest text-3xl font-bold bloom-text mb-4">2026 ARCANUM</h1>
-                            <p className="tracking-widest opacity-60 mb-12">"{rawName}" 님의 최종 운명이 확정되었습니다.</p>
 
-                            <button className="px-12 py-3 border border-accent text-accent tracking-widest hover:bg-accent hover:text-black transition-all font-serif">
-                                운명의 이미지 저장하기
+                        <div className="glass-blueprint text-center mt-12 w-full">
+                            <h1 className="tracking-[0.8em] text-4xl font-extrabold bloom-text mb-6 gold-engraved">2026 ARCANUM</h1>
+                            <p className="tracking-widest opacity-80 mb-12 italic">"{rawName}" 님의 최종 형상이 투과되었습니다.</p>
+
+                            <button className="crystalline-crest w-full">
+                                운명의 도안 저장하기
                             </button>
 
                             <button
                                 onClick={() => window.location.reload()}
-                                className="block mt-8 text-xs tracking-widest opacity-40 hover:opacity-100 transition-opacity"
+                                className="block mt-8 text-[10px] tracking-[0.6em] opacity-30 hover:opacity-100 transition-opacity uppercase"
                             >
-                                새로운 리추얼 시작하기
+                                새로운 리추얼 시작
                             </button>
                         </div>
                     </motion.div>
@@ -312,7 +324,7 @@ export default function Home() {
                 <motion.div
                     initial={{ opacity: 1 }}
                     animate={{ opacity: 0 }}
-                    transition={{ duration: 0.5 }}
+                    transition={{ duration: 0.8 }}
                     className="fixed inset-0 bg-white z-50 pointer-events-none"
                 />
             )}

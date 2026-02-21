@@ -14,55 +14,73 @@ export default function ArcanaCard({ soulNumber, image, intensity = 0, glowColor
     const cardData = soulNumber !== null && soulNumber !== undefined ? MAJOR_ARCANA[soulNumber] : null;
 
     return (
-        <motion.div
-            className="arcana-card relative overflow-hidden flex flex-col items-center justify-center border border-gold/30 rounded-lg shadow-2xl"
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1.5, ease: "easeOut" }}
-            style={{
-                boxShadow: `0 0 40px ${glowColor}20`,
-                background: "linear-gradient(135deg, #0a0a0a 0%, #000000 100%)"
-            }}
-        >
-            {/* Prism Overlay Layer */}
+        <div className="relative flex items-center justify-center w-full">
+            {/* Powerful pulsing back-bloom */}
+            <div className="back-bloom" style={{ background: `radial-gradient(circle, ${glowColor} 0%, transparent 70%)` }} />
+
             <motion.div
-                className="absolute inset-0 z-20 pointer-events-none"
-                style={{
-                    background: `linear-gradient(45deg, rgba(255,255,255,0.1), rgba(212,175,55,0.05), rgba(255,255,255,0.1))`,
-                    opacity: intensity,
-                    mixBlendMode: "overlay"
-                }}
-            />
+                className="sanctuary-arch relative overflow-hidden"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1.5, ease: "easeOut" }}
+            >
+                {/* Intricate Line Art (Mocked with CSS Borders/Decorations) */}
+                <div className="absolute inset-4 border border-gold-celestial/20 pointer-events-none rounded-t-[180px]" />
+                <div className="absolute inset-8 border border-gold-celestial/10 pointer-events-none rounded-t-[160px]" />
 
-            {/* Content Area */}
-            <div className="relative z-10 w-full h-full flex flex-col items-center justify-center p-6 text-center">
-                {image ? (
-                    <img src={image} alt="Arcana" className="w-full h-full object-cover" />
-                ) : cardData ? (
-                    <div className="flex flex-col items-center">
-                        <span className="text-4xl mb-4 filter drop-shadow-[0_0_8px_white]">{cardData.symbol}</span>
-                        <h3 className="tracking-[0.4em] text-[#F8F8F8] text-xl font-bold mb-2 bloom-text">
-                            {cardData.title}
-                        </h3>
-                        <p className="tracking-widest text-gold/60 text-sm italic">
-                            {cardData.name}
-                        </p>
-                    </div>
-                ) : (
-                    <div className="tracking-[0.6em] text-[#F8F8F8]/20 text-xs italic animate-pulse">
-                        DIVINING...
-                    </div>
-                )}
-            </div>
+                {/* Celestial Symbols (SVG Decorations) */}
+                <div className="absolute top-10 flex gap-4 opacity-30">
+                    <span className="text-gold-celestial">✨</span>
+                    <span className="text-gold-celestial">💠</span>
+                    <span className="text-gold-celestial">✨</span>
+                </div>
 
-            {/* Card Frame Decoration */}
-            <div className="absolute inset-2 border border-gold/10 pointer-events-none rounded" />
+                {/* Card Content Area */}
+                <div className="relative z-10 w-full h-full flex flex-col items-center justify-center p-8 text-center">
+                    {image ? (
+                        <motion.img
+                            src={image}
+                            alt="Arcana"
+                            className="w-full h-full object-cover rounded-md"
+                            initial={{ scale: 0.8, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                        />
+                    ) : cardData ? (
+                        <div className="flex flex-col items-center">
+                            <motion.span
+                                className="text-6xl mb-6 filter drop-shadow-[0_0_15px_white]"
+                                animate={{ y: [0, -10, 0] }}
+                                transition={{ duration: 4, repeat: Infinity }}
+                            >
+                                {cardData.symbol}
+                            </motion.span>
+                            <h3 className="tracking-[0.5em] text-[#F8F8F8] text-2xl font-bold mb-4 bloom-text">
+                                {cardData.title}
+                            </h3>
+                            <p className="tracking-widest text-gold-celestial/70 text-lg italic gold-engraved">
+                                {cardData.name}
+                            </p>
+                        </div>
+                    ) : (
+                        <div className="tracking-[0.8em] text-[#F8F8F8]/30 text-sm italic animate-pulse">
+                            DIVINING THE ARCHES...
+                        </div>
+                    )}
+                </div>
 
-            {/* Corner Accents */}
-            <div className="absolute top-0 left-0 w-4 h-4 border-t border-l border-gold/40" />
-            <div className="absolute top-0 right-0 w-4 h-4 border-t border-r border-gold/40" />
-            <div className="absolute bottom-0 left-0 w-4 h-4 border-b border-l border-gold/40" />
-            <div className="absolute bottom-0 right-0 w-4 h-4 border-b border-r border-gold/40" />
-        </motion.div>
+                {/* Prism Overlay Effect */}
+                <motion.div
+                    className="absolute inset-0 z-20 pointer-events-none"
+                    style={{
+                        background: `linear-gradient(45deg, rgba(74, 158, 255, 0.1), rgba(212, 175, 55, 0.1), rgba(74, 158, 255, 0.1))`,
+                        opacity: intensity,
+                        mixBlendMode: "screen"
+                    }}
+                />
+
+                {/* Bottom Mandala Base */}
+                <div className="absolute bottom-4 w-12 h-12 border border-gold-celestial/30 rotate-45 rounded-sm" />
+            </motion.div>
+        </div>
     );
 }
