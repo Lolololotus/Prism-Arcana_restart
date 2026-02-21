@@ -63,3 +63,14 @@
 [00:40:39.168] Server  ERROR   Gemini API Error: Error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent: [403 Forbidden] Your API key was reported as leaked. Please use another API key.
 [00:41:44.046] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
 [00:41:52.399] Server  LOG     ✓ Compiled in 9ms
+[00:47:44.747] Server  LOG     ✓ Compiled in 14ms
+[00:48:37.654] Server  LOG     ✓ Compiled in 55ms
+[00:48:49.496] Server  LOG     ✓ Compiled in 17ms
+[00:48:57.400] Server  LOG     ✓ Compiled in 6ms
+[00:49:07.131] Server  LOG     ✓ Compiled in 11ms
+[00:49:11.334] Server  LOG     ✓ Compiled in 12ms
+[00:49:21.041] Server  LOG     ✓ Compiled in 114ms
+[00:49:25.211] Server  LOG     ✓ Compiled in 18ms
+[00:49:54.380] Server  LOG     ✓ Compiled in 16ms
+[00:50:04.036] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:50:33.762] Server  ERROR   Gemini API Error: Error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent: [403 Forbidden] Your API key was reported as leaked. Please use another API key.

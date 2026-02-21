@@ -19,23 +19,26 @@ export default function Home() {
     const [objects, setObjects] = useState<string[]>([]);
     const [colors, setColors] = useState<string[]>([]);
     const [bridgeProgress, setBridgeProgress] = useState(0);
+    const [isRevealed, setIsRevealed] = useState(false);
 
     const calculateLifePath = (date: string) => {
         const digits = date.replace(/\D/g, "");
         if (digits.length !== 8) return;
 
         let sum = digits.split("").reduce((acc, d) => acc + parseInt(d), 0);
-        while (sum > 9 && sum !== 11 && sum !== 22) {
+        while (sum > 22) {
             sum = sum.toString().split("").reduce((acc, d) => acc + parseInt(d), 0);
         }
-        setLifePath(sum);
-        setSoulNumber(calculateSoulNumber(date));
+        const finalSoul = sum === 22 ? 21 : sum;
+        setLifePath(finalSoul);
+        setSoulNumber(finalSoul);
         setStep(3);
     };
 
     const startInterpretation = async () => {
         setStep(4);
         setIsTyping(true);
+        setIsRevealed(true); // Trigger Magic Circle and Card revelation effects
         try {
             const response = await fetch("/api/chat", {
                 method: "POST",
@@ -75,6 +78,7 @@ export default function Home() {
 
     useEffect(() => {
         if (step === 8) {
+            // Beta Guide: Implementing 2026 trajectory bridge logic [cite: 2026-02-16]
             const interval = setInterval(() => {
                 setBridgeProgress(prev => {
                     if (prev >= 100) {
@@ -91,7 +95,6 @@ export default function Home() {
 
     return (
         <>
-            {/* Background moved to the very top root level */}
             <GalacticBackground />
 
             <main className="ritual-container">
@@ -150,17 +153,17 @@ export default function Home() {
                     {step === 3 && (
                         <motion.div
                             key="step3"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
+                            initial={{ opacity: 0, scale: 0.8 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0, scale: 1.2 }}
                             className="flex flex-col items-center justify-center w-full max-w-2xl"
                         >
-                            <ArcanaCard soulNumber={soulNumber} intensity={1} />
+                            <ArcanaCard soulNumber={soulNumber} intensity={0.1} isRevealed={false} />
 
                             <motion.div
-                                initial={{ opacity: 0, y: 10 }}
+                                initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 1 }}
+                                transition={{ delay: 0.5 }}
                                 className="text-center mt-12 w-full flex flex-col items-center"
                             >
                                 <div className="glass-blueprint mb-8 px-12 w-full max-w-md">
@@ -184,8 +187,8 @@ export default function Home() {
                             exit={{ opacity: 0 }}
                             className="flex flex-col items-center justify-center w-full px-4 max-w-4xl"
                         >
-                            <div className="mb-4 opacity-50 scale-75 origin-center">
-                                <ArcanaCard soulNumber={soulNumber} intensity={0.2} />
+                            <div className="mb-4">
+                                <ArcanaCard soulNumber={soulNumber} intensity={0.5} isRevealed={isRevealed} />
                             </div>
 
                             <div className="glass-blueprint w-full max-w-3xl">
@@ -217,12 +220,12 @@ export default function Home() {
                             exit={{ opacity: 0 }}
                             className="flex flex-col items-center justify-center w-full max-w-4xl"
                         >
-                            <div className="scale-75 origin-center mb-0">
-                                <ArcanaCard soulNumber={soulNumber} intensity={objects.length * 0.2 + colors.length * 0.2} />
+                            <div className="scale-90 origin-center mb-0">
+                                <ArcanaCard soulNumber={soulNumber} intensity={objects.length * 0.2 + colors.length * 0.2} isRevealed={true} />
                             </div>
 
-                            <div className="glass-blueprint mt-4 text-center px-12 w-full max-w-2xl">
-                                <p className="tracking-widest mb-6 bloom-text">
+                            <div className="glass-blueprint mt-8 text-center px-12 w-full max-w-2xl">
+                                <p className="tracking-widest mb-6 bloom-text text-gold-celestial">
                                     {step === 5 ? "지미니: 운명의 청사진을 구성하십시오." : "지미니: 색채의 영혼을 투과하십시오."}
                                 </p>
 
@@ -267,7 +270,7 @@ export default function Home() {
                             exit={{ opacity: 0 }}
                             className="text-center flex flex-col items-center justify-center"
                         >
-                            <ArcanaCard soulNumber={soulNumber} intensity={1} />
+                            <ArcanaCard soulNumber={soulNumber} intensity={1} isRevealed={true} />
                             <p className="tracking-widest mt-12 bloom-text animate-pulse italic text-gold-celestial/60">
                                 천상의 스테인드글라스를 도식화하는 중...
                             </p>
@@ -299,16 +302,20 @@ export default function Home() {
                             key="step9"
                             initial={{ opacity: 0, scale: 0.9 }}
                             animate={{ opacity: 1, scale: 1 }}
-                            className="flex flex-col items-center justify-center w-full max-w-2xl"
+                            className="flex flex-col items-center justify-center w-full max-w-2xl px-4"
                         >
-                            <ArcanaCard soulNumber={soulNumber} intensity={1} glowColor="#ffcc00" />
+                            <ArcanaCard soulNumber={soulNumber} intensity={1} isRevealed={true} />
 
                             <div className="glass-blueprint text-center mt-12 w-full">
                                 <h1 className="tracking-[0.8em] text-4xl font-extrabold bloom-text mb-6 gold-engraved">2026 ARCANUM</h1>
-                                <p className="tracking-widest opacity-80 mb-12 italic">"{rawName}" 님의 최종 형상이 투과되었습니다.</p>
+                                <p className="tracking-widest opacity-80 mb-6 italic">"{rawName}" 님의 최종 형상이 투과되었습니다.</p>
+
+                                <p className="text-xs text-gold-celestial/70 tracking-widest mb-10 leading-loose italic">
+                                    "물질계의 운명은 아직 제련 중입니다. 실물 아르카나는 머지않아 드러날 예정입니다."
+                                </p>
 
                                 <button className="crystalline-crest w-full">
-                                    운명의 도안 저장하기
+                                    나만의 인생 카드 저장하기
                                 </button>
 
                                 <button
@@ -326,7 +333,7 @@ export default function Home() {
                     <motion.div
                         initial={{ opacity: 1 }}
                         animate={{ opacity: 0 }}
-                        transition={{ duration: 0.8 }}
+                        transition={{ duration: 1 }}
                         className="fixed inset-0 bg-white z-[100] pointer-events-none"
                     />
                 )}

@@ -15,105 +15,95 @@ export default function GalacticBackground() {
         let w = canvas.width = window.innerWidth;
         let h = canvas.height = window.innerHeight;
 
-        const stars: Star[] = [];
-        const starCount = 150;
-        let mouse = { x: -100, y: -100 };
-
-        class Star {
+        interface Star {
             x: number;
             y: number;
             size: number;
+            speed: number;
             opacity: number;
-            vx: number;
-            vy: number;
-
-            constructor() {
-                this.x = Math.random() * w;
-                this.y = Math.random() * h;
-                this.size = Math.random() * 1.5;
-                this.opacity = Math.random();
-                this.vx = (Math.random() - 0.5) * 0.2;
-                this.vy = (Math.random() - 0.5) * 0.2;
-            }
-
-            update() {
-                this.x += this.vx;
-                this.y += this.vy;
-
-                if (this.x < 0) this.x = w;
-                if (this.x > w) this.x = 0;
-                if (this.y < 0) this.y = h;
-                if (this.y > h) this.y = 0;
-
-                const dx = this.x - mouse.x;
-                const dy = this.y - mouse.y;
-                const dist = Math.sqrt(dx * dx + dy * dy);
-                if (dist < 100) {
-                    this.x += dx * 0.01;
-                    this.y += dy * 0.01;
-                }
-            }
-
-            draw() {
-                if (!ctx) return;
-                ctx.fillStyle = `rgba(248, 248, 248, ${this.opacity})`;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-            }
+            color: string;
+            cluster?: boolean;
         }
 
-        for (let i = 0; i < starCount; i++) {
-            stars.push(new Star());
-        }
+        const stars: Star[] = [];
+        const starCount = 180;
+        const starDustCount = 40; // Clustered nebula particles
 
-        function animate() {
-            if (!ctx) return;
+        const init = () => {
+            stars.length = 0;
+            // Background Stars
+            for (let i = 0; i < starCount; i++) {
+                stars.push({
+                    x: Math.random() * w,
+                    y: Math.random() * h,
+                    size: Math.random() * 1.5,
+                    speed: Math.random() * 0.05 + 0.01,
+                    opacity: Math.random(),
+                    color: Math.random() > 0.8 ? '#4a9eff' : '#fff'
+                });
+            }
+            // Star Dust clusters
+            for (let i = 0; i < starDustCount; i++) {
+                stars.push({
+                    x: Math.random() * w,
+                    y: Math.random() * h,
+                    size: Math.random() * 40 + 20, // Large soft spots
+                    speed: Math.random() * 0.02 + 0.005,
+                    opacity: Math.random() * 0.1, // Very faint
+                    color: Math.random() > 0.5 ? 'rgba(212, 175, 55, 0.05)' : 'rgba(74, 158, 255, 0.05)',
+                    cluster: true
+                });
+            }
+        };
+
+        const draw = () => {
             ctx.clearRect(0, 0, w, h);
+
             stars.forEach(star => {
-                star.update();
-                star.draw();
+                ctx.beginPath();
+                if (star.cluster) {
+                    // Draw Star Dust as soft radial clusters
+                    const grad = ctx.createRadialGradient(star.x, star.y, 0, star.x, star.y, star.size);
+                    grad.addColorStop(0, star.color);
+                    grad.addColorStop(1, 'transparent');
+                    ctx.fillStyle = grad;
+                    ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+                    ctx.fill();
+                } else {
+                    ctx.fillStyle = `rgba(${star.color === '#fff' ? '255,255,255' : '74,158,255'}, ${star.opacity})`;
+                    ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+                    ctx.fill();
+
+                    // Twinkle logic
+                    if (Math.random() > 0.98) star.opacity = Math.random();
+                }
+
+                // Organic movement
+                star.y -= star.speed;
+                if (star.y < -star.size) star.y = h + star.size;
             });
-            requestAnimationFrame(animate);
-        }
+
+            requestAnimationFrame(draw);
+        };
+
+        init();
+        draw();
 
         const handleResize = () => {
             w = canvas.width = window.innerWidth;
             h = canvas.height = window.innerHeight;
-        };
-
-        const handleMouseMove = (e: MouseEvent) => {
-            mouse.x = e.clientX;
-            mouse.y = e.clientY;
-        };
-
-        const handleTouchMove = (e: TouchEvent) => {
-            if (e.touches.length > 0) {
-                mouse.x = e.touches[0].clientX;
-                mouse.y = e.touches[0].clientY;
-            }
+            init();
         };
 
         window.addEventListener('resize', handleResize);
-        window.addEventListener('mousemove', handleMouseMove);
-        window.addEventListener('touchmove', handleTouchMove);
-        animate();
-
-        return () => {
-            window.removeEventListener('resize', handleResize);
-            window.removeEventListener('mousemove', handleMouseMove);
-            window.removeEventListener('touchmove', handleTouchMove);
-        };
+        return () => window.removeEventListener('resize', handleResize);
     }, []);
 
     return (
         <canvas
             ref={canvasRef}
-            className="fixed top-0 left-0 w-full h-full pointer-events-none"
-            style={{
-                background: 'transparent',
-                zIndex: -1 // Explicitly set to negative to stay behind everything
-            }}
+            className="fixed inset-0 w-full h-full pointer-events-none"
+            style={{ zIndex: 0, backgroundColor: '#000' }}
         />
     );
 }

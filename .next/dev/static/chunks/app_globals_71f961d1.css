@@ -6,9 +6,9 @@
   --accent-gold: #d4af37;
   --accent-celestial: #4a9eff;
   --font-serif: "Nanum Myeongjo", serif;
-  --celestial-glow: 0 0 15px #4a9eff4d, 0 0 30px #4a9eff1a;
-  --gold-glow: 0 0 15px #d4af3766, 0 0 30px #d4af3733;
-  --bloom-text: 0 0 12px #f8f8f899;
+  --celestial-glow: 0 0 20px #4a9eff66, 0 0 40px #4a9eff1a;
+  --gold-glow: 0 0 20px #d4af3780, 0 0 40px #d4af3733;
+  --bloom-text: 0 0 15px #f8f8f8b3;
 }
 
 * {
@@ -22,7 +22,6 @@ body {
   color: var(--foreground);
   font-family: var(--font-serif);
   -webkit-font-smoothing: antialiased;
-  background-image: radial-gradient(circle, #4a9eff0d 0%, #0000 70%), radial-gradient(circle at 20% 30%, #d4af3708 0%, #0000 40%);
   width: 100vw;
   height: 100vh;
   line-height: 1.6;
@@ -73,8 +72,8 @@ body {
   margin-bottom: 2.5rem;
 }
 
-.mt-8 {
-  margin-top: 2rem;
+.mt-12 {
+  margin-top: 3rem;
 }
 
 .px-4 {
@@ -88,6 +87,7 @@ body {
 
 .bloom-text {
   text-shadow: var(--bloom-text);
+  filter: drop-shadow(0 0 8px #ffffff4d);
 }
 
 h1 {
@@ -97,15 +97,24 @@ h1 {
   line-height: 1.4;
 }
 
+.gold-engraved {
+  background: linear-gradient(135deg, gold 0%, #d4af37 50%, #b8860b 100%);
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 5px #d4af3799);
+  -webkit-background-clip: text;
+  font-weight: 800;
+  display: inline-block;
+}
+
 .glass-blueprint {
-  -webkit-backdrop-filter: blur(15px);
-  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
   background: #0a0a0ad9;
-  border: 1px solid #4a9eff33;
-  border-radius: 8px;
+  border: 1px solid #d4af3733;
+  border-radius: 4px;
   padding: 3rem;
   position: relative;
-  box-shadow: 0 0 50px #000c;
+  box-shadow: 0 0 50px #000000e6;
 }
 
 .glass-blueprint:after {
@@ -120,21 +129,21 @@ h1 {
   border: 1px solid var(--accent-gold);
   color: var(--accent-gold);
   font-family: var(--font-serif);
-  letter-spacing: .7em;
+  letter-spacing: .8em;
   cursor: pointer;
   text-transform: uppercase;
   background: none;
-  padding: 16px 48px;
+  padding: 18px 52px;
   font-weight: 700;
-  transition: all .4s cubic-bezier(.165, .84, .44, 1);
+  transition: all .5s cubic-bezier(.19, 1, .22, 1);
   position: relative;
 }
 
 .crystalline-crest:hover {
+  letter-spacing: 1em;
   background: #d4af3726;
   border-color: #fff;
-  transform: translateY(-3px);
-  box-shadow: 0 0 50px #d4af3766;
+  box-shadow: 0 0 60px #d4af3780;
 }
 
 .ritual-container {
@@ -155,38 +164,39 @@ h1 {
   pointer-events: auto;
 }
 
-.arcana-card {
-  z-index: 10;
-  position: relative;
-}
-
 .jewel-slot-crest {
-  border: 1px solid #4a9eff4d;
+  border: 1px solid #d4af374d;
   justify-content: center;
   align-items: center;
-  width: 60px;
-  height: 60px;
-  transition: all .4s;
+  width: 65px;
+  height: 65px;
+  transition: all .6s cubic-bezier(.165, .84, .44, 1);
   display: flex;
 }
 
 .jewel-slot-crest.active {
-  border-color: var(--accent-gold);
-  box-shadow: 0 0 25px var(--accent-gold);
-  background: #d4af3733;
+  box-shadow: 0 0 30px #fff, 0 0 60px var(--accent-gold);
+  background: #d4af374d;
+  border-color: #fff;
 }
 
-.back-bloom {
-  background: radial-gradient(circle, var(--accent-gold) 0%, transparent 70%);
-  z-index: -1;
-  opacity: .5;
-  pointer-events: none;
-  width: 500px;
-  height: 500px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+.cursor {
+  background: var(--accent-gold);
+  width: 2px;
+  height: 1.2em;
+  margin-left: 4px;
+  animation: 1s step-end infinite blink;
+  display: inline-block;
+}
+
+@keyframes blink {
+  from, to {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
 }
 
 /*# sourceMappingURL=app_globals_71f961d1.css.map*/

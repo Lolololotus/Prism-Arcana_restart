@@ -6,9 +6,9 @@
     --accent-gold: #d4af37;
     --accent-celestial: #4a9eff;
     --font-serif: 'Nanum Myeongjo', serif;
-    --celestial-glow: 0 0 15px rgba(74, 158, 255, 0.3), 0 0 30px rgba(74, 158, 255, 0.1);
-    --gold-glow: 0 0 15px rgba(212, 175, 55, 0.4), 0 0 30px rgba(212, 175, 55, 0.2);
-    --bloom-text: 0 0 12px rgba(248, 248, 248, 0.6);
+    --celestial-glow: 0 0 20px rgba(74, 158, 255, 0.4), 0 0 40px rgba(74, 158, 255, 0.1);
+    --gold-glow: 0 0 20px rgba(212, 175, 55, 0.5), 0 0 40px rgba(212, 175, 55, 0.2);
+    --bloom-text: 0 0 15px rgba(248, 248, 248, 0.7);
 }
 
 * {
@@ -19,9 +19,6 @@
 
 body {
     background: var(--background);
-    background-image:
-        radial-gradient(circle at center, rgba(74, 158, 255, 0.05) 0%, transparent 70%),
-        radial-gradient(circle at 20% 30%, rgba(212, 175, 55, 0.03) 0%, transparent 40%);
     color: var(--foreground);
     font-family: var(--font-serif);
     line-height: 1.6;
@@ -76,8 +73,8 @@ body {
     margin-bottom: 2.5rem;
 }
 
-.mt-8 {
-    margin-top: 2rem;
+.mt-12 {
+    margin-top: 3rem;
 }
 
 .px-4 {
@@ -91,26 +88,35 @@ body {
 
 .bloom-text {
     text-shadow: var(--bloom-text);
+    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.3));
 }
 
 h1 {
     font-size: 1.25rem;
-    /* Reduced for elegance and single line */
     letter-spacing: 0.2em;
     font-weight: 700;
     line-height: 1.4;
 }
 
+/* Engraved Gold Typography */
+.gold-engraved {
+    background: linear-gradient(135deg, #FFD700 0%, #D4AF37 50%, #B8860B 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 5px rgba(212, 175, 55, 0.6));
+    font-weight: 800;
+    display: inline-block;
+}
+
 /* Glass Blueprint Panel */
 .glass-blueprint {
     background: rgba(10, 10, 10, 0.85);
-    /* Slightly darker for better contrast */
-    backdrop-filter: blur(15px);
-    border: 1px solid rgba(74, 158, 255, 0.2);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(212, 175, 55, 0.2);
     position: relative;
     padding: 3rem;
-    box-shadow: 0 0 50px rgba(0, 0, 0, 0.8);
-    border-radius: 8px;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.9);
+    border-radius: 4px;
 }
 
 .glass-blueprint::after {
@@ -129,24 +135,24 @@ h1 {
     background: transparent;
     border: 1px solid var(--accent-gold);
     color: var(--accent-gold);
-    padding: 16px 48px;
+    padding: 18px 52px;
     font-family: var(--font-serif);
-    letter-spacing: 0.7em;
+    letter-spacing: 0.8em;
     position: relative;
     cursor: pointer;
-    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
     text-transform: uppercase;
     font-weight: 700;
 }
 
 .crystalline-crest:hover {
     background: rgba(212, 175, 55, 0.15);
-    box-shadow: 0 0 50px rgba(212, 175, 55, 0.4);
-    transform: translateY(-3px);
+    box-shadow: 0 0 60px rgba(212, 175, 55, 0.5);
+    letter-spacing: 1em;
     border-color: #fff;
 }
 
-/* Ritual Layout - THE FINAL BOSS OF CENTERING */
+/* Ritual Layout */
 .ritual-container {
     position: fixed;
     inset: 0;
@@ -157,49 +163,49 @@ h1 {
     align-items: center;
     justify-content: center;
     z-index: 50;
-    /* High z-index to stay above background */
     background: transparent;
     pointer-events: none;
-    /* Crucial: Let background catch mouse if no UI present */
 }
 
-/* Internal contents need pointer-events-auto */
 .ritual-container>* {
     pointer-events: auto;
 }
 
-/* Arcana Card */
-.arcana-card {
-    position: relative;
-    z-index: 10;
-}
-
 /* Jewel Slots */
 .jewel-slot-crest {
-    width: 60px;
-    height: 60px;
-    border: 1px solid rgba(74, 158, 255, 0.3);
+    width: 65px;
+    height: 65px;
+    border: 1px solid rgba(212, 175, 55, 0.3);
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.4s ease;
+    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 .jewel-slot-crest.active {
-    border-color: var(--accent-gold);
-    box-shadow: 0 0 25px var(--accent-gold);
-    background: rgba(212, 175, 55, 0.2);
+    border-color: #fff;
+    box-shadow: 0 0 30px #fff, 0 0 60px var(--accent-gold);
+    background: rgba(212, 175, 55, 0.3);
 }
 
-.back-bloom {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 500px;
-    height: 500px;
-    background: radial-gradient(circle, var(--accent-gold) 0%, transparent 70%);
-    z-index: -1;
-    opacity: 0.5;
-    pointer-events: none;
+/* Cursor for typing effect */
+.cursor {
+    display: inline-block;
+    width: 2px;
+    height: 1.2em;
+    background: var(--accent-gold);
+    margin-left: 4px;
+    animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+
+    from,
+    to {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
 }
