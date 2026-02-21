@@ -789,7 +789,7 @@ function Home() {
         step
     ]);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
-        className: "ritual-container overflow-hidden",
+        className: "ritual-container",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$GalacticBackground$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/app/page.tsx",
@@ -812,12 +812,12 @@ function Home() {
                             opacity: 0,
                             scale: 1.1
                         },
-                        className: "fixed inset-0 z-10 text-center flex flex-col items-center justify-center p-4 pointer-events-none",
+                        className: "z-10 flex flex-col items-center justify-center w-full max-w-2xl px-4",
                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "glass-blueprint w-full max-w-2xl flex flex-col items-center pointer-events-auto",
+                            className: "glass-blueprint w-full flex flex-col items-center",
                             children: [
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
-                                    className: "tracking-widest text-lg font-bold bloom-text mb-10",
+                                    className: "tracking-widest bloom-text mb-10 text-center",
                                     children: "당신을 뭐라고 부르길 원하십니까?"
                                 }, void 0, false, {
                                     fileName: "[project]/app/page.tsx",
@@ -858,12 +858,12 @@ function Home() {
                         exit: {
                             opacity: 0
                         },
-                        className: "fixed inset-0 z-10 text-center flex flex-col items-center justify-center p-4 pointer-events-none",
+                        className: "z-10 flex flex-col items-center justify-center w-full max-w-2xl px-4",
                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "glass-blueprint w-full max-w-2xl flex flex-col items-center pointer-events-auto",
+                            className: "glass-blueprint w-full flex flex-col items-center",
                             children: [
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
-                                    className: "tracking-widest text-lg font-bold bloom-text mb-10",
+                                    className: "tracking-widest bloom-text mb-10 text-center",
                                     children: "당신의 우주가 열린 날짜를 알려주십시오."
                                 }, void 0, false, {
                                     fileName: "[project]/app/page.tsx",

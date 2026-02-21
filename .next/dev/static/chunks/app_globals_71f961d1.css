@@ -52,20 +52,8 @@ body {
   z-index: 10;
 }
 
-.overflow-hidden {
-  overflow: hidden;
-}
-
 .w-full {
   width: 100%;
-}
-
-.max-w-md {
-  max-width: 28rem;
-}
-
-.max-w-lg {
-  max-width: 32rem;
 }
 
 .max-w-2xl {
@@ -80,17 +68,8 @@ body {
   max-width: 56rem;
 }
 
-.mb-12 {
-  margin-bottom: 3rem;
-}
-
-.mt-12 {
-  margin-top: 3rem;
-}
-
-h1 {
-  font-size: 1.5rem;
-  line-height: 1.2;
+.mb-10 {
+  margin-bottom: 2.5rem;
 }
 
 .mt-8 {
@@ -102,10 +81,6 @@ h1 {
   padding-right: 1rem;
 }
 
-.gap-8 {
-  gap: 2rem;
-}
-
 .tracking-widest {
   letter-spacing: .4em;
 }
@@ -114,34 +89,11 @@ h1 {
   text-shadow: var(--bloom-text);
 }
 
-.gold-engraved {
-  color: var(--accent-gold);
-  text-shadow: 0 0 8px #d4af3780;
+h1 {
+  letter-spacing: .3em;
+  font-size: 1.4rem;
   font-weight: 700;
-}
-
-.celestial-frame {
-  background: #0003;
-  border: 1px solid #d4af3733;
-  padding: 2rem;
-  position: relative;
-}
-
-.sanctuary-arch {
-  background: #ffffff03;
-  border: 1px solid #d4af374d;
-  border-top-left-radius: 225px;
-  border-top-right-radius: 225px;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  max-width: 450px;
-  height: 55vh;
-  padding: 20px;
-  display: flex;
-  position: relative;
-  box-shadow: inset 0 0 50px #4a9eff0d;
+  line-height: 1.4;
 }
 
 .glass-blueprint {
@@ -150,7 +102,7 @@ h1 {
   background: #ffffff0a;
   border: 1px solid #4a9eff26;
   border-radius: 4px;
-  padding: 2rem;
+  padding: 2.5rem;
   position: relative;
   box-shadow: 0 0 40px #000000b3;
 }
@@ -173,28 +125,25 @@ h1 {
   background: none;
   padding: 14px 40px;
   font-weight: 700;
-  transition: all .4s cubic-bezier(.165, .84, .44, 1);
+  transition: all .4s;
   position: relative;
 }
 
 .crystalline-crest:hover {
   background: #d4af371a;
-  border-color: #fff;
   transform: translateY(-3px);
   box-shadow: 0 0 40px #d4af374d;
 }
 
 .ritual-container {
-  z-index: 10;
   background: none;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  place-items: center;
   width: 100vw;
   height: 100vh;
   padding: 2rem;
-  display: flex;
+  display: grid;
   position: relative;
+  overflow: hidden;
 }
 
 .jewel-slot-crest {
@@ -221,30 +170,17 @@ h1 {
   background: #d4af3726;
 }
 
-@keyframes back-bloom {
-  0%, 100% {
-    opacity: .3;
-    filter: blur(50px);
-    transform: translate(-50%, -50%)scale(1);
-  }
-
-  50% {
-    opacity: .6;
-    filter: blur(70px);
-    transform: translate(-50%, -50%)scale(1.2);
-  }
-}
-
 .back-bloom {
   background: radial-gradient(circle, var(--accent-gold) 0%, transparent 70%);
   z-index: -1;
+  opacity: .4;
   pointer-events: none;
   width: 400px;
   height: 400px;
-  animation: 8s ease-in-out infinite back-bloom;
   position: absolute;
   top: 50%;
   left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 /*# sourceMappingURL=app_globals_71f961d1.css.map*/

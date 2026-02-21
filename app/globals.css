@@ -30,7 +30,7 @@ body {
     height: 100vh;
 }
 
-/* Utility Classes (Restored) */
+/* Utility Classes */
 .flex {
     display: flex;
 }
@@ -55,20 +55,8 @@ body {
     z-index: 10;
 }
 
-.overflow-hidden {
-    overflow: hidden;
-}
-
 .w-full {
     width: 100%;
-}
-
-.max-w-md {
-    max-width: 28rem;
-}
-
-.max-w-lg {
-    max-width: 32rem;
 }
 
 .max-w-2xl {
@@ -83,18 +71,8 @@ body {
     max-width: 56rem;
 }
 
-.mb-12 {
-    margin-bottom: 3rem;
-}
-
-.mt-12 {
-    margin-top: 3rem;
-}
-
-h1 {
-    font-size: 1.5rem;
-    /* Reduced from default to fit on one line */
-    line-height: 1.2;
+.mb-10 {
+    margin-bottom: 2.5rem;
 }
 
 .mt-8 {
@@ -106,10 +84,6 @@ h1 {
     padding-right: 1rem;
 }
 
-.gap-8 {
-    gap: 2rem;
-}
-
 .tracking-widest {
     letter-spacing: 0.4em;
 }
@@ -118,36 +92,11 @@ h1 {
     text-shadow: var(--bloom-text);
 }
 
-.gold-engraved {
-    color: var(--accent-gold);
-    text-shadow: 0 0 8px rgba(212, 175, 55, 0.5);
+h1 {
+    font-size: 1.4rem;
+    letter-spacing: 0.3em;
     font-weight: 700;
-}
-
-/* Celestial Line Art Sanctuary */
-.celestial-frame {
-    position: relative;
-    border: 1px solid rgba(212, 175, 55, 0.2);
-    padding: 2rem;
-    background: rgba(0, 0, 0, 0.2);
-}
-
-/* Archway Design */
-.sanctuary-arch {
-    position: relative;
-    width: 100%;
-    max-width: 450px;
-    height: 55vh;
-    border-top-left-radius: 225px;
-    border-top-right-radius: 225px;
-    border: 1px solid rgba(212, 175, 55, 0.3);
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background: rgba(255, 255, 255, 0.01);
-    box-shadow: inset 0 0 50px rgba(74, 158, 255, 0.05);
+    line-height: 1.4;
 }
 
 /* Glass Blueprint Panel */
@@ -156,7 +105,7 @@ h1 {
     backdrop-filter: blur(12px);
     border: 1px solid rgba(74, 158, 255, 0.15);
     position: relative;
-    padding: 2rem;
+    padding: 2.5rem;
     box-shadow: 0 0 40px rgba(0, 0, 0, 0.7);
     border-radius: 4px;
 }
@@ -182,7 +131,7 @@ h1 {
     letter-spacing: 0.6em;
     position: relative;
     cursor: pointer;
-    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    transition: all 0.4s ease;
     text-transform: uppercase;
     font-weight: 700;
 }
@@ -191,25 +140,22 @@ h1 {
     background: rgba(212, 175, 55, 0.1);
     box-shadow: 0 0 40px rgba(212, 175, 55, 0.3);
     transform: translateY(-3px);
-    border-color: #fff;
 }
 
-/* Ritual Layout */
+/* Ritual Layout - THE CENTERING FIX */
 .ritual-container {
     height: 100vh;
     width: 100vw;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    /* Centered instead of space-between */
+    display: grid;
+    place-items: center;
+    /* Force elements to the absolute dead center */
     padding: 2rem;
-    z-index: 10;
     position: relative;
     background: transparent;
+    overflow: hidden;
 }
 
-/* Jewel Slots (Crystalline Icons) */
+/* Jewel Slots */
 .jewel-slot-crest {
     width: 55px;
     height: 55px;
@@ -234,30 +180,15 @@ h1 {
     background: rgba(212, 175, 55, 0.15);
 }
 
-@keyframes back-bloom {
-
-    0%,
-    100% {
-        opacity: 0.3;
-        transform: translate(-50%, -50%) scale(1);
-        filter: blur(50px);
-    }
-
-    50% {
-        opacity: 0.6;
-        transform: translate(-50%, -50%) scale(1.2);
-        filter: blur(70px);
-    }
-}
-
 .back-bloom {
     position: absolute;
     top: 50%;
     left: 50%;
+    transform: translate(-50%, -50%);
     width: 400px;
     height: 400px;
     background: radial-gradient(circle, var(--accent-gold) 0%, transparent 70%);
     z-index: -1;
-    animation: back-bloom 8s infinite ease-in-out;
+    opacity: 0.4;
     pointer-events: none;
 }
