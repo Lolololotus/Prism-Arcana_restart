@@ -54,7 +54,6 @@ function GalacticBackground() {
                 if (this.x > w) this.x = 0;
                 if (this.y < 0) this.y = h;
                 if (this.y > h) this.y = 0;
-                // Mouse interaction
                 const dx = this.x - mouse.x;
                 const dy = this.y - mouse.y;
                 const dist = Math.sqrt(dx * dx + dy * dy);
@@ -77,8 +76,6 @@ function GalacticBackground() {
         function animate() {
             if (!ctx) return;
             ctx.clearRect(0, 0, w, h);
-            // Noise background pattern could be added here if needed, 
-            // but pure black + gradients in CSS covers the requirement.
             stars.forEach((star)=>{
                 star.update();
                 star.draw();
@@ -111,13 +108,14 @@ function GalacticBackground() {
     }, []);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("canvas", {
         ref: canvasRef,
-        className: "fixed top-0 left-0 w-full h-full pointer-events-none z-0",
+        className: "fixed top-0 left-0 w-full h-full pointer-events-none",
         style: {
-            background: 'transparent'
+            background: 'transparent',
+            zIndex: -1 // Explicitly set to negative to stay behind everything
         }
     }, void 0, false, {
         fileName: "[project]/components/GalacticBackground.tsx",
-        lineNumber: 115,
+        lineNumber: 110,
         columnNumber: 9
     }, this);
 }
@@ -755,13 +753,13 @@ function Home() {
                             opacity: 0,
                             scale: 1.1
                         },
-                        className: "z-10 text-center flex flex-col items-center",
+                        className: "z-10 text-center flex flex-col items-center justify-center w-full max-w-2xl",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "glass-blueprint mb-12",
+                                className: "glass-blueprint mb-12 w-full",
                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
                                     className: "tracking-widest text-2xl font-bold bloom-text",
-                                    children: "당신의 성명을 각인하십시오."
+                                    children: "당신을 뭐라고 부르길 원하십니까?"
                                 }, void 0, false, {
                                     fileName: "[project]/app/page.tsx",
                                     lineNumber: 106,
@@ -777,7 +775,7 @@ function Home() {
                                 autoFocus: true,
                                 value: rawName,
                                 onChange: (e)=>setRawName(e.target.value),
-                                className: "bg-transparent border-b border-gold-celestial/30 p-2 text-center text-3xl tracking-widest outline-none font-serif text-[#F8F8F8] bloom-text focus:border-accent-gold transition-colors",
+                                className: "bg-transparent border-b border-gold-celestial/30 p-2 text-center text-3xl tracking-widest outline-none font-serif text-[#F8F8F8] bloom-text focus:border-accent-gold transition-colors w-full max-w-md",
                                 placeholder: "...",
                                 onKeyDown: (e)=>e.key === "Enter" && rawName && setStep(2)
                             }, void 0, false, {
@@ -801,13 +799,13 @@ function Home() {
                         exit: {
                             opacity: 0
                         },
-                        className: "z-10 text-center flex flex-col items-center",
+                        className: "z-10 text-center flex flex-col items-center justify-center w-full max-w-2xl",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "glass-blueprint mb-12",
+                                className: "glass-blueprint mb-12 w-full",
                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
                                     className: "tracking-widest text-2xl font-bold bloom-text",
-                                    children: "탄생의 궤적을 투과하십시오."
+                                    children: "당신의 우주가 열린 날짜를 알려주십시오."
                                 }, void 0, false, {
                                     fileName: "[project]/app/page.tsx",
                                     lineNumber: 131,
@@ -824,7 +822,7 @@ function Home() {
                                 maxLength: 8,
                                 value: birthDate,
                                 onChange: (e)=>setBirthDate(e.target.value.replace(/\D/g, "")),
-                                className: "bg-transparent border-b border-gold-celestial/30 p-2 text-center text-3xl tracking-widest outline-none font-serif text-[#F8F8F8] bloom-text focus:border-accent-gold transition-colors",
+                                className: "bg-transparent border-b border-gold-celestial/30 p-2 text-center text-3xl tracking-widest outline-none font-serif text-[#F8F8F8] bloom-text focus:border-accent-gold transition-colors w-full max-w-md",
                                 placeholder: "YYYYMMDD",
                                 onKeyDown: (e)=>e.key === "Enter" && birthDate.length === 8 && calculateLifePath(birthDate)
                             }, void 0, false, {
@@ -848,7 +846,7 @@ function Home() {
                         exit: {
                             opacity: 0
                         },
-                        className: "z-10 flex flex-col items-center w-full max-w-2xl",
+                        className: "z-10 flex flex-col items-center justify-center w-full max-w-2xl",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ArcanaCard$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
                                 soulNumber: soulNumber,
@@ -870,10 +868,10 @@ function Home() {
                                 transition: {
                                     delay: 1
                                 },
-                                className: "text-center mt-12",
+                                className: "text-center mt-12 w-full flex flex-col items-center",
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "glass-blueprint mb-8 px-12",
+                                        className: "glass-blueprint mb-8 px-12 w-full max-w-md",
                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
                                             className: "tracking-[0.5em] text-xl opacity-80",
                                             children: [
@@ -893,7 +891,7 @@ function Home() {
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                         onClick: startInterpretation,
                                         className: "crystalline-crest",
-                                        children: "의식 계속하기"
+                                        children: "당신의 인생 카드 읽어보기"
                                     }, void 0, false, {
                                         fileName: "[project]/app/page.tsx",
                                         lineNumber: 167,
@@ -921,10 +919,10 @@ function Home() {
                         exit: {
                             opacity: 0
                         },
-                        className: "z-10 flex flex-col items-center w-full px-4",
+                        className: "z-10 flex flex-col items-center justify-center w-full px-4 max-w-4xl",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "mb-8 opacity-60 scale-75 origin-top",
+                                className: "mb-4 opacity-50 scale-75 origin-center",
                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ArcanaCard$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
                                     soulNumber: soulNumber,
                                     intensity: 0.2
@@ -968,8 +966,8 @@ function Home() {
                                     opacity: 1
                                 },
                                 onClick: ()=>setStep(5),
-                                className: "mt-12 crystalline-crest",
-                                children: "공방으로 진입하기"
+                                className: "mt-8 crystalline-crest",
+                                children: "나만의 인생카드 공방으로 진입하기"
                             }, void 0, false, {
                                 fileName: "[project]/app/page.tsx",
                                 lineNumber: 198,
@@ -991,10 +989,10 @@ function Home() {
                         exit: {
                             opacity: 0
                         },
-                        className: "z-10 flex flex-col items-center w-full max-w-4xl",
+                        className: "z-10 flex flex-col items-center justify-center w-full max-w-4xl",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "scale-90 origin-top mb-4",
+                                className: "scale-75 origin-center mb-0",
                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ArcanaCard$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
                                     soulNumber: soulNumber,
                                     intensity: objects.length * 0.2 + colors.length * 0.2
@@ -1009,10 +1007,10 @@ function Home() {
                                 columnNumber: 25
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "glass-blueprint mt-8 text-center px-12",
+                                className: "glass-blueprint mt-4 text-center px-12 w-full max-w-2xl",
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                        className: "tracking-widest mb-8 bloom-text",
+                                        className: "tracking-widest mb-6 bloom-text",
                                         children: step === 5 ? "지미니: 운명의 청사진을 구성하십시오." : "지미니: 색채의 영혼을 투과하십시오."
                                     }, void 0, false, {
                                         fileName: "[project]/app/page.tsx",
@@ -1020,7 +1018,7 @@ function Home() {
                                         columnNumber: 29
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "flex gap-8 mb-8 justify-center",
+                                        className: "flex gap-8 mb-6 justify-center",
                                         children: [
                                             [
                                                 1,
@@ -1103,7 +1101,7 @@ function Home() {
                         exit: {
                             opacity: 0
                         },
-                        className: "z-10 text-center",
+                        className: "z-10 text-center flex flex-col items-center justify-center",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ArcanaCard$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
                                 soulNumber: soulNumber,
@@ -1137,7 +1135,7 @@ function Home() {
                         exit: {
                             opacity: 0
                         },
-                        className: "z-10 w-full max-w-md text-center",
+                        className: "z-10 w-full max-w-md text-center flex flex-col items-center justify-center",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
                                 className: "tracking-widest mb-8 text-xl bloom-text gold-engraved",
@@ -1190,7 +1188,7 @@ function Home() {
                             opacity: 1,
                             scale: 1
                         },
-                        className: "z-10 flex flex-col items-center w-full max-w-2xl",
+                        className: "z-10 flex flex-col items-center justify-center w-full max-w-2xl",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ArcanaCard$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
                                 soulNumber: soulNumber,

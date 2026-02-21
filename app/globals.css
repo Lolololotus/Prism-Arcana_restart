@@ -30,6 +30,80 @@ body {
     height: 100vh;
 }
 
+/* Utility Classes (Restored) */
+.flex {
+    display: flex;
+}
+
+.flex-col {
+    flex-direction: column;
+}
+
+.items-center {
+    align-items: center;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.z-10 {
+    z-index: 10;
+}
+
+.overflow-hidden {
+    overflow: hidden;
+}
+
+.w-full {
+    width: 100%;
+}
+
+.max-w-md {
+    max-width: 28rem;
+}
+
+.max-w-lg {
+    max-width: 32rem;
+}
+
+.max-w-2xl {
+    max-width: 42rem;
+}
+
+.max-w-3xl {
+    max-width: 48rem;
+}
+
+.max-w-4xl {
+    max-width: 56rem;
+}
+
+.mb-12 {
+    margin-bottom: 3rem;
+}
+
+.mt-12 {
+    margin-bottom: 3rem;
+}
+
+.mt-8 {
+    margin-top: 2rem;
+}
+
+.px-4 {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.gap-8 {
+    gap: 2rem;
+}
+
 .tracking-widest {
     letter-spacing: 0.4em;
 }
@@ -52,22 +126,14 @@ body {
     background: rgba(0, 0, 0, 0.2);
 }
 
-.celestial-frame::before {
-    content: '';
-    position: absolute;
-    inset: -5px;
-    border: 1px solid rgba(74, 158, 255, 0.15);
-    pointer-events: none;
-}
-
 /* Archway Design */
 .sanctuary-arch {
     position: relative;
     width: 100%;
     max-width: 450px;
-    min-height: 50vh;
-    border-top-left-radius: 200px;
-    border-top-right-radius: 200px;
+    height: 55vh;
+    border-top-left-radius: 225px;
+    border-top-right-radius: 225px;
     border: 1px solid rgba(212, 175, 55, 0.3);
     padding: 20px;
     display: flex;
@@ -80,22 +146,23 @@ body {
 
 /* Glass Blueprint Panel */
 .glass-blueprint {
-    background: rgba(255, 255, 255, 0.02);
+    background: rgba(255, 255, 255, 0.04);
     backdrop-filter: blur(12px);
-    border: 1px solid rgba(74, 158, 255, 0.1);
+    border: 1px solid rgba(74, 158, 255, 0.15);
     position: relative;
-    padding: 1.5rem;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    padding: 2rem;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.7);
+    border-radius: 4px;
 }
 
 .glass-blueprint::after {
     content: '';
     position: absolute;
-    top: 5px;
-    left: 5px;
-    right: 5px;
-    bottom: 5px;
-    border: 1px solid rgba(212, 175, 55, 0.05);
+    top: 8px;
+    left: 8px;
+    right: 8px;
+    bottom: 8px;
+    border: 1px solid rgba(212, 175, 55, 0.1);
     pointer-events: none;
 }
 
@@ -104,42 +171,47 @@ body {
     background: transparent;
     border: 1px solid var(--accent-gold);
     color: var(--accent-gold);
-    padding: 12px 30px;
+    padding: 14px 40px;
     font-family: var(--font-serif);
-    letter-spacing: 0.5em;
+    letter-spacing: 0.6em;
     position: relative;
     cursor: pointer;
-    transition: all 0.4s ease;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
     text-transform: uppercase;
+    font-weight: 700;
 }
 
 .crystalline-crest:hover {
     background: rgba(212, 175, 55, 0.1);
-    box-shadow: 0 0 30px rgba(212, 175, 55, 0.2);
-    transform: translateY(-2px);
+    box-shadow: 0 0 40px rgba(212, 175, 55, 0.3);
+    transform: translateY(-3px);
+    border-color: #fff;
 }
 
 /* Ritual Layout */
 .ritual-container {
     height: 100vh;
+    width: 100vw;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
-    padding: 4vh 2rem;
+    justify-content: center;
+    /* Centered instead of space-between */
+    padding: 2rem;
     z-index: 10;
     position: relative;
+    background: transparent;
 }
 
 /* Jewel Slots (Crystalline Icons) */
 .jewel-slot-crest {
-    width: 50px;
-    height: 50px;
-    border: 1px solid rgba(74, 158, 255, 0.2);
+    width: 55px;
+    height: 55px;
+    border: 1px solid rgba(74, 158, 255, 0.3);
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.3s ease;
+    transition: all 0.4s ease;
 }
 
 .jewel-slot-crest.diamond {
@@ -152,31 +224,34 @@ body {
 
 .jewel-slot-crest.active {
     border-color: var(--accent-gold);
-    box-shadow: 0 0 15px var(--accent-gold);
-    background: rgba(212, 175, 55, 0.1);
+    box-shadow: 0 0 20px var(--accent-gold);
+    background: rgba(212, 175, 55, 0.15);
 }
 
 @keyframes back-bloom {
 
     0%,
     100% {
-        opacity: 0.4;
-        transform: scale(1);
-        filter: blur(40px);
+        opacity: 0.3;
+        transform: translate(-50%, -50%) scale(1);
+        filter: blur(50px);
     }
 
     50% {
-        opacity: 0.7;
-        transform: scale(1.1);
-        filter: blur(60px);
+        opacity: 0.6;
+        transform: translate(-50%, -50%) scale(1.2);
+        filter: blur(70px);
     }
 }
 
 .back-bloom {
     position: absolute;
-    width: 300px;
-    height: 300px;
+    top: 50%;
+    left: 50%;
+    width: 400px;
+    height: 400px;
     background: radial-gradient(circle, var(--accent-gold) 0%, transparent 70%);
     z-index: -1;
-    animation: back-bloom 6s infinite ease-in-out;
+    animation: back-bloom 8s infinite ease-in-out;
+    pointer-events: none;
 }

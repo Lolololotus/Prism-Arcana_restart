@@ -100,11 +100,11 @@ export default function Home() {
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 0, scale: 1.1 }}
-                        className="z-10 text-center flex flex-col items-center"
+                        className="z-10 text-center flex flex-col items-center justify-center w-full max-w-2xl"
                     >
-                        <div className="glass-blueprint mb-12">
+                        <div className="glass-blueprint mb-12 w-full">
                             <h1 className="tracking-widest text-2xl font-bold bloom-text">
-                                당신의 성명을 각인하십시오.
+                                당신을 뭐라고 부르길 원하십니까?
                             </h1>
                         </div>
                         <input
@@ -112,7 +112,7 @@ export default function Home() {
                             autoFocus
                             value={rawName}
                             onChange={(e) => setRawName(e.target.value)}
-                            className="bg-transparent border-b border-gold-celestial/30 p-2 text-center text-3xl tracking-widest outline-none font-serif text-[#F8F8F8] bloom-text focus:border-accent-gold transition-colors"
+                            className="bg-transparent border-b border-gold-celestial/30 p-2 text-center text-3xl tracking-widest outline-none font-serif text-[#F8F8F8] bloom-text focus:border-accent-gold transition-colors w-full max-w-md"
                             placeholder="..."
                             onKeyDown={(e) => e.key === "Enter" && rawName && setStep(2)}
                         />
@@ -125,11 +125,11 @@ export default function Home() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        className="z-10 text-center flex flex-col items-center"
+                        className="z-10 text-center flex flex-col items-center justify-center w-full max-w-2xl"
                     >
-                        <div className="glass-blueprint mb-12">
+                        <div className="glass-blueprint mb-12 w-full">
                             <h1 className="tracking-widest text-2xl font-bold bloom-text">
-                                탄생의 궤적을 투과하십시오.
+                                당신의 우주가 열린 날짜를 알려주십시오.
                             </h1>
                         </div>
                         <input
@@ -138,7 +138,7 @@ export default function Home() {
                             maxLength={8}
                             value={birthDate}
                             onChange={(e) => setBirthDate(e.target.value.replace(/\D/g, ""))}
-                            className="bg-transparent border-b border-gold-celestial/30 p-2 text-center text-3xl tracking-widest outline-none font-serif text-[#F8F8F8] bloom-text focus:border-accent-gold transition-colors"
+                            className="bg-transparent border-b border-gold-celestial/30 p-2 text-center text-3xl tracking-widest outline-none font-serif text-[#F8F8F8] bloom-text focus:border-accent-gold transition-colors w-full max-w-md"
                             placeholder="YYYYMMDD"
                             onKeyDown={(e) => e.key === "Enter" && birthDate.length === 8 && calculateLifePath(birthDate)}
                         />
@@ -151,7 +151,7 @@ export default function Home() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        className="z-10 flex flex-col items-center w-full max-w-2xl"
+                        className="z-10 flex flex-col items-center justify-center w-full max-w-2xl"
                     >
                         <ArcanaCard soulNumber={soulNumber} intensity={1} />
 
@@ -159,16 +159,16 @@ export default function Home() {
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 1 }}
-                            className="text-center mt-12"
+                            className="text-center mt-12 w-full flex flex-col items-center"
                         >
-                            <div className="glass-blueprint mb-8 px-12">
+                            <div className="glass-blueprint mb-8 px-12 w-full max-w-md">
                                 <h2 className="tracking-[0.5em] text-xl opacity-80">SOUL NUMBER: {soulNumber}</h2>
                             </div>
                             <button
                                 onClick={startInterpretation}
                                 className="crystalline-crest"
                             >
-                                의식 계속하기
+                                당신의 인생 카드 읽어보기
                             </button>
                         </motion.div>
                     </motion.div>
@@ -180,9 +180,9 @@ export default function Home() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        className="z-10 flex flex-col items-center w-full px-4"
+                        className="z-10 flex flex-col items-center justify-center w-full px-4 max-w-4xl"
                     >
-                        <div className="mb-8 opacity-60 scale-75 origin-top">
+                        <div className="mb-4 opacity-50 scale-75 origin-center">
                             <ArcanaCard soulNumber={soulNumber} intensity={0.2} />
                         </div>
 
@@ -199,9 +199,9 @@ export default function Home() {
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 onClick={() => setStep(5)}
-                                className="mt-12 crystalline-crest"
+                                className="mt-8 crystalline-crest"
                             >
-                                공방으로 진입하기
+                                나만의 인생카드 공방으로 진입하기
                             </motion.button>
                         )}
                     </motion.div>
@@ -213,18 +213,18 @@ export default function Home() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        className="z-10 flex flex-col items-center w-full max-w-4xl"
+                        className="z-10 flex flex-col items-center justify-center w-full max-w-4xl"
                     >
-                        <div className="scale-90 origin-top mb-4">
+                        <div className="scale-75 origin-center mb-0">
                             <ArcanaCard soulNumber={soulNumber} intensity={objects.length * 0.2 + colors.length * 0.2} />
                         </div>
 
-                        <div className="glass-blueprint mt-8 text-center px-12">
-                            <p className="tracking-widest mb-8 bloom-text">
+                        <div className="glass-blueprint mt-4 text-center px-12 w-full max-w-2xl">
+                            <p className="tracking-widest mb-6 bloom-text">
                                 {step === 5 ? "지미니: 운명의 청사진을 구성하십시오." : "지미니: 색채의 영혼을 투과하십시오."}
                             </p>
 
-                            <div className="flex gap-8 mb-8 justify-center">
+                            <div className="flex gap-8 mb-6 justify-center">
                                 {[1, 2, 3].map(i => (
                                     <JewelSlot
                                         key={`obj-${i}`}
@@ -263,7 +263,7 @@ export default function Home() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        className="z-10 text-center"
+                        className="z-10 text-center flex flex-col items-center justify-center"
                     >
                         <ArcanaCard soulNumber={soulNumber} intensity={1} />
                         <p className="tracking-widest mt-12 bloom-text animate-pulse italic text-gold-celestial/60">
@@ -278,7 +278,7 @@ export default function Home() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        className="z-10 w-full max-w-md text-center"
+                        className="z-10 w-full max-w-md text-center flex flex-col items-center justify-center"
                     >
                         <h2 className="tracking-widest mb-8 text-xl bloom-text gold-engraved">2026년의 궤적을 비추는 중...</h2>
                         <div className="w-full h-0.5 bg-white/5 relative overflow-hidden">
@@ -297,7 +297,7 @@ export default function Home() {
                         key="step9"
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
-                        className="z-10 flex flex-col items-center w-full max-w-2xl"
+                        className="z-10 flex flex-col items-center justify-center w-full max-w-2xl"
                     >
                         <ArcanaCard soulNumber={soulNumber} intensity={1} glowColor="#ffcc00" />
 

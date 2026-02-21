@@ -45,7 +45,6 @@ export default function GalacticBackground() {
                 if (this.y < 0) this.y = h;
                 if (this.y > h) this.y = 0;
 
-                // Mouse interaction
                 const dx = this.x - mouse.x;
                 const dy = this.y - mouse.y;
                 const dist = Math.sqrt(dx * dx + dy * dy);
@@ -71,10 +70,6 @@ export default function GalacticBackground() {
         function animate() {
             if (!ctx) return;
             ctx.clearRect(0, 0, w, h);
-
-            // Noise background pattern could be added here if needed, 
-            // but pure black + gradients in CSS covers the requirement.
-
             stars.forEach(star => {
                 star.update();
                 star.draw();
@@ -114,8 +109,11 @@ export default function GalacticBackground() {
     return (
         <canvas
             ref={canvasRef}
-            className="fixed top-0 left-0 w-full h-full pointer-events-none z-0"
-            style={{ background: 'transparent' }}
+            className="fixed top-0 left-0 w-full h-full pointer-events-none"
+            style={{
+                background: 'transparent',
+                zIndex: -1 // Explicitly set to negative to stay behind everything
+            }}
         />
     );
 }
