@@ -100,10 +100,10 @@ export default function Home() {
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 0, scale: 1.1 }}
-                        className="z-10 text-center flex flex-col items-center justify-center w-full max-w-2xl px-4"
+                        className="fixed inset-0 z-10 text-center flex flex-col items-center justify-center p-4 pointer-events-none"
                     >
-                        <div className="glass-blueprint w-full flex flex-col items-center">
-                            <h1 className="tracking-widest text-lg font-bold bloom-text mb-8">
+                        <div className="glass-blueprint w-full max-w-2xl flex flex-col items-center pointer-events-auto">
+                            <h1 className="tracking-widest text-lg font-bold bloom-text mb-10">
                                 당신을 뭐라고 부르길 원하십니까?
                             </h1>
                             <input
@@ -125,10 +125,10 @@ export default function Home() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        className="z-10 text-center flex flex-col items-center justify-center w-full max-w-2xl px-4"
+                        className="fixed inset-0 z-10 text-center flex flex-col items-center justify-center p-4 pointer-events-none"
                     >
-                        <div className="glass-blueprint w-full flex flex-col items-center">
-                            <h1 className="tracking-widest text-lg font-bold bloom-text mb-8">
+                        <div className="glass-blueprint w-full max-w-2xl flex flex-col items-center pointer-events-auto">
+                            <h1 className="tracking-widest text-lg font-bold bloom-text mb-10">
                                 당신의 우주가 열린 날짜를 알려주십시오.
                             </h1>
                             <input
